@@ -224,25 +224,6 @@
 			<footer class="mt-12 text-sm text-slate-400">Made with suggestions and a dash of silliness. Feedback welcome!</footer>
 		</main>
 
-			<!-- Theme switcher script and staggered reveal behavior -->
-			<script>
-				// Theme switching
-				document.querySelectorAll('.theme-btn').forEach(btn => {
-					btn.addEventListener('click', (e) => {
-						const chosen = e.currentTarget.getAttribute('data-theme');
-						document.body.classList.remove('theme-dark','theme-neon','theme-solar');
-						document.body.classList.add(chosen);
-						document.querySelectorAll('.theme-btn').forEach(b => b.setAttribute('aria-pressed','false'));
-						e.currentTarget.setAttribute('aria-pressed','true');
-					});
-				});
-
-				// Stagger reveal: add 'reveal' class to elements marked with data-reveal to replay on page load or theme change
-				document.querySelectorAll('.reveal').forEach(el => {
-					// force reflow to restart animation
-					void el.offsetWidth;
-					el.classList.add('reveal');
-				});
-			</script>
+			<!-- download script removed -->
 	</body>
 </html>
