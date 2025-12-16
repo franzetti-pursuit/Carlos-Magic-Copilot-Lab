@@ -14,6 +14,10 @@
 		    --accent-1: #00f5d4;
 		    --accent-2: #8b5cf6;
 		    --muted: rgba(255,255,255,0.18);
+		    --text: #e6eef8;
+		    --card-bg: rgba(255,255,255,0.03);
+		    --panel-bg: rgba(255,255,255,0.02);
+		    --border: rgba(255,255,255,0.06);
 		  }
 
 		  /* Theme variants */
@@ -39,12 +43,27 @@
 		    --accent-1: #ffd166;
 		    --accent-2: #ef476f;
 		    --muted: rgba(0,0,0,0.12);
+		    --text: #fff7e6;
+		    --card-bg: rgba(255,255,255,0.02);
+		    --panel-bg: rgba(255,255,255,0.015);
+		    --border: rgba(255,255,255,0.04);
 		  }
+
+		  /* Dark and Neon theme tweaks */
+		  .theme-dark { --text: #e6eef8; --card-bg: rgba(255,255,255,0.03); --panel-bg: rgba(255,255,255,0.02); --border: rgba(255,255,255,0.06); }
+		  .theme-neon { --text: #eaf8ff; --card-bg: rgba(255,255,255,0.02); --panel-bg: rgba(255,255,255,0.015); --border: rgba(255,255,255,0.05); }
 
 		  /* Use CSS variables in gradients */
 		  .bg-dynamic {
 		    background-image: linear-gradient(135deg, var(--bg-start), var(--bg-end));
 		  }
+
+		  /* Map some common Tailwind utility classes to our theme variables */
+		  body { color: var(--text); }
+		  .text-slate-300, .text-slate-400 { color: var(--muted) !important; }
+		  .bg-white\/5 { background-color: var(--card-bg) !important; }
+		  .bg-white\/3 { background-color: var(--panel-bg) !important; }
+		  .border-white\/6 { border-color: var(--border) !important; }
 
 		  /* Reveal animations */
 		  @keyframes slideUpFade { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
@@ -224,6 +243,48 @@
 			<footer class="mt-12 text-sm text-slate-400">Made with suggestions and a dash of silliness. Feedback welcome!</footer>
 		</main>
 
-			<!-- download script removed -->
+			<!-- Theme switcher script: apply, persist, and replay animations -->
+			<script>
+				(function(){
+					const THEME_KEY = 'site-theme';
+					const themeButtons = document.querySelectorAll('.theme-btn');
+					function setAriaPressed(activeTheme){
+						themeButtons.forEach(b => b.setAttribute('aria-pressed', b.getAttribute('data-theme') === activeTheme));
+					}
+
+					function applyTheme(theme){
+						document.body.classList.remove('theme-dark','theme-neon','theme-solar');
+						document.body.classList.add(theme);
+						setAriaPressed(theme);
+						try{ localStorage.setItem(THEME_KEY, theme); }catch(e){}
+						// replay reveal animations
+						replayReveals();
+					}
+
+					function replayReveals(){
+						document.querySelectorAll('.reveal').forEach((el) => {
+							el.classList.remove('reveal');
+							// force reflow
+							void el.offsetWidth;
+							el.classList.add('reveal');
+						});
+					}
+
+					// attach listeners
+					themeButtons.forEach(btn => btn.addEventListener('click', (e) => {
+						const chosen = e.currentTarget.getAttribute('data-theme');
+						applyTheme(chosen);
+					}));
+
+					// init from storage or existing class on body
+					const saved = (function(){try{return localStorage.getItem(THEME_KEY);}catch(e){return null}})();
+					if(saved) applyTheme(saved);
+					else {
+						// ensure aria reflects the current body class
+						const current = ['theme-dark','theme-neon','theme-solar'].find(c => document.body.classList.contains(c)) || 'theme-dark';
+						setAriaPressed(current);
+					}
+				})();
+			</script>
 	</body>
 </html>

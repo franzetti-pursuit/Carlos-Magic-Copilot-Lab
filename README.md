@@ -12,6 +12,8 @@ Quick preview 🚀
 Themes & interactivity 🎛️
 - The demo includes **three** swappable themes: **Dark** (default), **Neon**, and **Solar**. Use the theme buttons in the header to toggle.
 - Animations are intentionally playful (staggered reveals, particles, floaty graphics). The page respects `prefers-reduced-motion` for accessibility.
+ - Theme choice is persisted in your browser (localStorage) and applied on reload.
+ - Themes now control site-wide variables (background, text, card and border colors, and accent gradients) so switching a theme updates the whole page.
 
 How it's built 🧩
 - Minimal: `index.html` contains HTML, Tailwind utility classes, inline SVGs for graphics, and a tiny bit of vanilla JS for theme switching and animations.
