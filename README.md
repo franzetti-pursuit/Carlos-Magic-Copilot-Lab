@@ -1,4 +1,4 @@
-# my-first-repo
+# Carlos-Magic-Copilot-Lab
 Playground for quick UI experiments and a tiny tribute to Copilot's charm.
 
 What is this madness? ✨
